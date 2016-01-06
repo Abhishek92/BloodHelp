@@ -4,4 +4,16 @@
     <string name="parse_app_id">dAcGTAMKd0a9qJycBLLPAIj6JEk3Wld2hbw39p5w</string>
     <string name="parse_client_key">TAYZZgQjNjv7x6gLRdiJrQnDziWvfqdp23rLf83E</string>
     <string name="google_api_key">AIzaSyD7yIl_aBFMmyG8qf1yuwhqQd89Tw5OL1Q</string>
+
+    <string-array name="blood_group_arr">
+        <item>Select blood group</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+    </string-array>
 </resources>

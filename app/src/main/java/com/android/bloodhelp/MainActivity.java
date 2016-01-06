@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_button)
     void loginWithFacebook() {
-        ParseFacebookUtils.logInWithReadPermissionsInBackground(this, Arrays.asList("public_profile","user_location","user_birthday"), new LogInCallback() {
+        ParseFacebookUtils.logInWithReadPermissionsInBackground(this, Arrays.asList("public_profile", "email", "user_birthday", "user_friends"), new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
                 if (user == null) {
