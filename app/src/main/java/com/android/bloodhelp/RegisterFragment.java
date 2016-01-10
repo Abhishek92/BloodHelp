@@ -23,7 +23,9 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
@@ -51,6 +53,8 @@ public class RegisterFragment extends BaseFragment {
     EditText mDateofBirth;
     @Bind(R.id.frag_pick_place)
     EditText mPickPlace;
+    @Bind(R.id.frag_mobno)
+    EditText mMobileNo;
     @Bind(R.id.frag_blood_group_type)
     Spinner mBloodGroupType;
     @Bind(R.id.frag_email)
@@ -67,6 +71,9 @@ public class RegisterFragment extends BaseFragment {
     private Profile mProfile;
     private ParseGeoPoint parseGeoPoint;
     private Uri profilePic;
+    private ParseGeoPoint northeastPoints;
+    private ParseGeoPoint southwestPoints;
+    private PersonProfile mPersonProfile;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -125,35 +132,41 @@ public class RegisterFragment extends BaseFragment {
     public void registerUser()
     {
         if(validate()){
-            ParseUser profile = new ParseUser();
-            profile.setUsername(mUserName.getText().toString());
-            profile.setEmail(mEmailId.getText().toString());
-            profile.setPassword(mProfile.getId());
-            profile.put("address", mPickPlace.getText().toString());
-            profile.put("facebookId", mProfile.getId());
-            profile.put("gender", getUserGender());
-            profile.put("profile_pic", profilePic.toString());
-            profile.put("dob", mDateofBirth.getText().toString());
-            profile.put("bloodGroup", mBloodGroupType.getSelectedItem().toString());
-            profile.put("location", parseGeoPoint);
+            mPersonProfile = new PersonProfile();
+            mPersonProfile.setUsername(mUserName.getText().toString());
+            mPersonProfile.setEmail(mEmailId.getText().toString());
+            mPersonProfile.setPassword(mProfile.getId());
+            mPersonProfile.setAddress(mPickPlace.getText().toString());
+            mPersonProfile.setFacebookId(mProfile.getId());
+            mPersonProfile.setGender(getUserGender());
+            mPersonProfile.setProfilePic(profilePic.toString());
+            mPersonProfile.setDateOfBirth(mDateofBirth.getText().toString());
+            mPersonProfile.setBloodGroup(mBloodGroupType.getSelectedItem().toString());
+            mPersonProfile.setUserLocation(parseGeoPoint);
+            mPersonProfile.setMobileNumber(mMobileNo.getText().toString());
 
-            showProgressDialog("Loading...");
-            profile.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-                        cancelProgressDialog();
-                        Toast.makeText(getActivity(), "User registered", Toast.LENGTH_SHORT).show();
-                        BloodHelpApp.getSavePrefsInstance(getActivity()).setRegistrationComplete(true);
-                        startActivity(new Intent(getActivity(), HomeActivity.class));
-                        getActivity().finish();
-                    } else {
-                        cancelProgressDialog();
-                        Toast.makeText(getActivity(), "Please try again!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+            initiateSignUp();
         }
+    }
+
+    private void initiateSignUp()
+    {
+        showProgressDialog("Please wait...");
+        mPersonProfile.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    cancelProgressDialog();
+                    Toast.makeText(getActivity(), "User registered", Toast.LENGTH_SHORT).show();
+                    BloodHelpApp.getSavePrefsInstance(getActivity()).setRegistrationComplete(true);
+                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                    getActivity().finish();
+                } else {
+                    cancelProgressDialog();
+                    Toast.makeText(getActivity(), "Please try again!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private String getUserGender()
@@ -177,7 +190,16 @@ public class RegisterFragment extends BaseFragment {
         parseGeoPoint.setLatitude(latitude);
         parseGeoPoint.setLongitude(longitude);
 
+        BloodHelpApp.getSavePrefsInstance(getActivity()).setCurrentLatitude(String.valueOf(latitude));
+        BloodHelpApp.getSavePrefsInstance(getActivity()).setCurrentLongitude(String.valueOf(longitude));
+
         return parseGeoPoint;
+    }
+
+    private void setGeoPointsBounds(LatLng northeast, LatLng southwest)
+    {
+        northeastPoints = new ParseGeoPoint(northeast.latitude, northeast.longitude);
+        southwestPoints = new ParseGeoPoint(southwest.latitude, southwest.longitude);
     }
 
     @Override
@@ -187,6 +209,7 @@ public class RegisterFragment extends BaseFragment {
             if (resultCode == Activity.RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, getActivity());
                 getUsersGeoPoints(place.getLatLng().latitude, place.getLatLng().longitude);
+                //setGeoPointsBounds(place.getViewport().northeast, place.getViewport().southwest);
                 mPickPlace.setText(place.getAddress());
                 mPickPlace.setLines(4);
             }
@@ -212,6 +235,16 @@ public class RegisterFragment extends BaseFragment {
         else if(!Patterns.EMAIL_ADDRESS.matcher(mEmailId.getText().toString()).matches()){
             mEmailId.setError("Email is not correct");
             mEmailId.requestFocus();
+            return false;
+        }
+        else if(TextUtils.isEmpty(mMobileNo.getText().toString())){
+            mMobileNo.setError("Mobile no is required");
+            mMobileNo.requestFocus();
+            return false;
+        }
+        else if(mMobileNo.getText().toString().length() != 10){
+            mMobileNo.setError("Mobile no is not correct");
+            mMobileNo.requestFocus();
             return false;
         }
         else if(mBloodGroupType.getSelectedItemPosition() == 0){

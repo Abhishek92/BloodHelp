@@ -45,6 +45,21 @@
                 android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:id="@+id/frag_mobno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="Mobile No"
+                android:padding="8dp"
+                android:maxLength="10"
+                android:inputType="phone"/>
+        </android.support.design.widget.TextInputLayout>
+
         <Spinner
             android:id="@+id/frag_blood_group_type"
             android:layout_width="match_parent"

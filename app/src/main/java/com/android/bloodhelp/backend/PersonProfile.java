@@ -10,85 +10,69 @@ import com.parse.ParseUser;
 @ParseClassName("PersonProfile")
 public class PersonProfile extends ParseUser {
 
-    private String facebookId;
-    private String gender;
-    private String dateOfBirth;
-    private String bloodGroup;
-    private String address;
-    private String city;
-    private String userState;
-    private String profilePic;
-    private ParseGeoPoint userLocation;
-
     public String getFacebookId() {
-        return facebookId;
+        return getString("facebookId");
     }
 
     public void setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
-    }
-
-    public String getUserState() {
-        return userState;
-    }
-
-    public void setUserState(String userState) {
-        this.userState = userState;
+        put("facebookId", facebookId);
     }
 
     public String getGender() {
-        return gender;
+        return getString("gender");
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        put("gender", gender);
     }
 
     public String getDateOfBirth() {
-        return dateOfBirth;
+        return getString("dob");
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        put("dob", dateOfBirth);
     }
 
     public String getBloodGroup() {
-        return bloodGroup;
+        return getString("bloodGroup");
     }
 
     public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
+        put("bloodGroup", bloodGroup);
     }
 
     public String getAddress() {
-        return address;
+        return getString("address");
     }
 
     public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+        put("address",address);
     }
 
     public String getProfilePic() {
-        return profilePic;
+        return getString("profile_pic");
     }
 
     public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
+        put("profile_pic", profilePic);
     }
 
     public ParseGeoPoint getUserLocation() {
-        return userLocation;
+        return getParseGeoPoint("location");
     }
 
     public void setUserLocation(ParseGeoPoint userLocation) {
-        this.userLocation = userLocation;
+        put("location", userLocation);
+    }
+
+    public void setMobileNumber(String number)
+    {
+        put("mobileNo", number);
+    }
+
+    public String getMobileNumber()
+    {
+        return getString("mobileNo");
     }
 }

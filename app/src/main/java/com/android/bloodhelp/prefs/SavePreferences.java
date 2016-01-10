@@ -28,6 +28,30 @@ public final class SavePreferences {
         return shared_preferences.getBoolean("isRegistered", false);
     }
 
+    public void setCurrentLatitude(String latitide)
+    {
+        SharedPreferences.Editor editor = shared_preferences.edit();
+        editor.putString("latitude", latitide);
+        editor.commit();
+    }
+
+    public void setCurrentLongitude(String longitude)
+    {
+        SharedPreferences.Editor editor = shared_preferences.edit();
+        editor.putString("longitude", longitude);
+        editor.commit();
+    }
+
+    public String getCurrentLatitude()
+    {
+        return shared_preferences.getString("latitude", "");
+    }
+
+    public String getCurrentLongitude()
+    {
+        return shared_preferences.getString("longitude", "");
+    }
+
     public void removeAll() {
         // Clear All Shared prefernce
         shared_preferences.edit().clear().commit();
