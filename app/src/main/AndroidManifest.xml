@@ -20,7 +20,8 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

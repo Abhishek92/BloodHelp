@@ -1,8 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.android.bloodhelp.RegisterFragment"
+    android:layout_height="match_parent"
     android:padding="16dp"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    tools:context="com.android.bloodhelp.RegisterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,8 +14,8 @@
            android:id="@+id/frag_profile_image"
            android:layout_width="120dp"
            android:layout_height="120dp"
-           android:src="@drawable/placeholder"
-           android:layout_gravity="center_horizontal"/>
+           android:layout_gravity="center_horizontal"
+           android:src="@drawable/placeholder" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -25,10 +26,10 @@
                 android:id="@+id/frag_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:hint="Username"
+                android:inputType="textPersonName"
                 android:padding="8dp"
-                android:inputType="textPersonName"/>
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -39,10 +40,10 @@
                 android:id="@+id/frag_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:padding="8dp"
-                android:inputType="textEmailAddress"/>
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -50,31 +51,60 @@
             android:layout_height="wrap_content"
             >
             <EditText
+                android:id="@+id/frag_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/frag_conf_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
                 android:id="@+id/frag_mobno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:hint="Mobile No"
-                android:padding="8dp"
+                android:inputType="phone"
                 android:maxLength="10"
-                android:inputType="phone"/>
+                android:padding="8dp"
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
             android:id="@+id/frag_blood_group_type"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/blood_group_array"
             android:layout_marginTop="12dp"
-            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:entries="@array/blood_group_array"
             />
 
         <RadioGroup
             android:id="@+id/frag_gender_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/frag_male_rb"
                 android:layout_width="wrap_content"
@@ -101,9 +131,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Date of birth"
             android:clickable="true"
             android:focusable="false"
+            android:hint="Date of birth"
             android:inputType="none"
             android:singleLine="true"/>
 
@@ -112,19 +142,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Pick your place"
             android:clickable="true"
             android:focusable="false"
+            android:hint="Pick your place"
             android:inputType="none"/>
 
         <Button
             android:id="@+id/frag_submit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
-            android:textColor="@android:color/white"
+            android:layout_marginTop="12dp"
             android:background="@drawable/submit_btn_bg"
-            android:layout_marginTop="12dp"/>
+            android:text="Submit"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>

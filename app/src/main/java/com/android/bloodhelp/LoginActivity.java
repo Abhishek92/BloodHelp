@@ -10,21 +10,30 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
     // UI references.
-    private EditText mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    @Bind(R.id.email)
+    EditText mEmailView;
+    @Bind(R.id.password)
+    EditText mPasswordView;
+    @Bind(R.id.login_progress)
+    View mProgressView;
+    @Bind(R.id.login_form)
+    View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
     }
 
     /**
@@ -32,7 +41,8 @@ public class LoginActivity extends AppCompatActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+    @OnClick(R.id.email_sign_in_button)
+    void attemptLogin() {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -80,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     /**
@@ -117,6 +127,10 @@ public class LoginActivity extends AppCompatActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    private void initLoginProcess() {
+
     }
 }
 
