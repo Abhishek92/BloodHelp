@@ -10,6 +10,7 @@ import com.parse.ParseUser;
 @ParseClassName("PersonProfile")
 public class PersonProfile extends ParseUser {
 
+
     public String getFacebookId() {
         return getString("facebookId");
     }

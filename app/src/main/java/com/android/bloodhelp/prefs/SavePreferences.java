@@ -44,12 +44,12 @@ public final class SavePreferences {
 
     public String getCurrentLatitude()
     {
-        return shared_preferences.getString("latitude", "");
+        return shared_preferences.getString("latitude", "0.0");
     }
 
     public String getCurrentLongitude()
     {
-        return shared_preferences.getString("longitude", "");
+        return shared_preferences.getString("longitude", "0.0");
     }
 
     public void removeAll() {
