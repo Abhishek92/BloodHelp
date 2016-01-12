@@ -2,9 +2,9 @@ package com.android.bloodhelp;
 
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
-import android.app.Fragment;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -24,16 +24,10 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.squareup.picasso.Picasso;
-
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -67,6 +61,10 @@ public class RegisterFragment extends BaseFragment {
     RadioButton mFemaleRb;
     @Bind(R.id.frag_others_rb)
     RadioButton mOthersRb;
+    @Bind(R.id.frag_password)
+    EditText mPassword;
+    @Bind(R.id.frag_conf_password)
+    EditText mConfirmPassword;
 
     private Profile mProfile;
     private ParseGeoPoint parseGeoPoint;
@@ -135,7 +133,7 @@ public class RegisterFragment extends BaseFragment {
             mPersonProfile = new PersonProfile();
             mPersonProfile.setUsername(mUserName.getText().toString());
             mPersonProfile.setEmail(mEmailId.getText().toString());
-            mPersonProfile.setPassword(mProfile.getId());
+            mPersonProfile.setPassword(mPassword.getText().toString());
             mPersonProfile.setAddress(mPickPlace.getText().toString());
             mPersonProfile.setFacebookId(mProfile.getId());
             mPersonProfile.setGender(getUserGender());
@@ -231,10 +229,17 @@ public class RegisterFragment extends BaseFragment {
             mEmailId.setError("Email is not correct");
             mEmailId.requestFocus();
             return false;
-        }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(mEmailId.getText().toString()).matches()){
-            mEmailId.setError("Email is not correct");
-            mEmailId.requestFocus();
+        } else if (TextUtils.isEmpty(mPassword.getText().toString())) {
+            mPassword.setError("Password is required");
+            mPassword.requestFocus();
+            return false;
+        } else if (mPassword.getText().toString().length() < 5) {
+            mPassword.setError("Password is too short");
+            mPassword.requestFocus();
+            return false;
+        } else if (!mConfirmPassword.getText().toString().equals(mPassword.getText().toString())) {
+            mConfirmPassword.setError("Password doesn't match");
+            mConfirmPassword.requestFocus();
             return false;
         }
         else if(TextUtils.isEmpty(mMobileNo.getText().toString())){

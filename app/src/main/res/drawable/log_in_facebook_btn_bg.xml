@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:state_pressed="true" android:drawable="@color/com_facebook_button_background_color_pressed" />
-    <item android:state_pressed="true" android:drawable="@color/com_facebook_button_background_color_disabled"/>
-    <item android:state_checked="true" android:drawable="@color/com_facebook_button_background_color_disabled"/>
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="6dp" />
+    <solid android:color="@color/com_facebook_button_background_color" />
+</shape>
